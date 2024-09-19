@@ -120,3 +120,9 @@ const filterByGender2 = (genre: string) => {
 const filterByGender3 = (genre: string) => {
   books.filter((book) => book.genre === genre);
 };
+
+const customFilter = (search: string | number | boolean) =>
+  books.filter((book) => {
+    if (typeof search === "string" && book.author.includes(search)) return true;
+    if (typeof search === "number" && book.year === search) return true;
+  });
