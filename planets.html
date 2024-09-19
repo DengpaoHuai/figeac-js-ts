@@ -4,10 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .loader {
+        width: 20px;
+        height: 20px;
+        border-radius: 80px;
+        border: 5px solid;
+        border-color: black;
+        border-top-color: white;
+        animation: rotate 1s infinite;
+      }
+      @keyframes rotate {
+        from {
+          transform: rotateZ(0deg);
+        }
+
+        to {
+          transform: rotateZ(380deg);
+        }
+      }
+    </style>
   </head>
   <body>
+    <div id="monsuperloader" class="loader"></div>
     <div id="planets"></div>
-    <button id="previous">previous</button>
+    <button disabled id="previous">previous</button>
     <button id="next">next</button>
     <script src="planet.js"></script>
   </body>

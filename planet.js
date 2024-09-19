@@ -1,9 +1,24 @@
 //https://swapi.dev/documentation#planets
 
-const getData = async (page = 1) => {
+let planetResponse = {
+  count: 0,
+  next: null,
+  previous: null,
+  results: [],
+};
+
+const getData = async (url) => {
+  document.getElementById("monsuperloader").style.display = "block";
+  document.getElementById("next").disabled = false;
+  document.getElementById("previous").disabled = false;
+  document.getElementById("planets").innerHTML = "";
   try {
-    const result = await fetch("https://swapi.dev/api/planets?page=" + page);
+    const result = await fetch(url);
     const data = await result.json();
+    document.getElementById("monsuperloader").style.display = "none";
+    planetResponse = data;
+    if (!data.next) document.getElementById("next").disabled = true;
+    if (!data.previous) document.getElementById("previous").disabled = true;
     data.results.forEach((planet) => {
       const p = document.createElement("p");
       p.innerText = planet.name;
@@ -14,12 +29,12 @@ const getData = async (page = 1) => {
   } catch (error) {}
 };
 
-getData();
+getData("https://swapi.dev/api/planets");
 
 document.getElementById("next").addEventListener("click", () => {
-  console.log("next");
+  getData(planetResponse.next);
 });
 
 document.getElementById("previous").addEventListener("click", () => {
-  console.log("previous");
+  getData(planetResponse.previous);
 });
